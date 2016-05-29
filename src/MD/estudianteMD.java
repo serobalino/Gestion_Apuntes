@@ -17,11 +17,11 @@ public class estudianteMD {
     estudianteDP estudiantedp = new estudianteDP();
     conexion_db conexion = new conexion_db();
     public String verficarMD (estudianteDP estu) throws SQLException{
-        String resultado = "No se encontraron datos";
+        String resultado = "0";
         String sql = "select * from estudiantes where CI_EST='"+estu.getCedula()+"' limit 1";
         ResultSet rs = conexion.conexion().executeQuery(sql);
         while(rs.next()){
-            resultado = "Si esta en la Base";
+            resultado = "1";
         }
         System.out.println(resultado);
         return(resultado);

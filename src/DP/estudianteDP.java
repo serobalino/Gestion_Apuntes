@@ -51,10 +51,11 @@ public class estudianteDP {
         this.Nombres = Nombres;
     }
     
-    public void verficarDP() throws SQLException
-    {
+    public String verficarDP() throws SQLException{
+        String verificacion="";
         estudianteMD estudiantemd = new estudianteMD();
-        estudiantemd.verficarMD(this);
+        verificacion=estudiantemd.verficarMD(this);
+        return(verificacion);
     }
     
     
