@@ -28,8 +28,7 @@ public class estudianteMD {
         return resultado; 
     }
     
-    public ArrayList Facultades() throws SQLException
-    {
+    public ArrayList Facultades() throws SQLException{
         ArrayList<String> retorno = new ArrayList();
         String sql = "select NOMBRE_FAC from facultades";
         ResultSet rs = conexion.conexion().executeQuery(sql);
