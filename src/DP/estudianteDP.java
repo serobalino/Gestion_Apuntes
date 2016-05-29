@@ -7,6 +7,7 @@ package DP;
 
 import MD.estudianteMD;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -50,13 +51,32 @@ public class estudianteDP {
     public void setNombres(String Nombres) {
         this.Nombres = Nombres;
     }
-    
-    public String verficarDP() throws SQLException{
-        String verificacion="";
-        estudianteMD estudiantemd = new estudianteMD();
+        
+    public boolean verficarDP() throws SQLException{  
+    estudianteMD estudiantemd = new estudianteMD();
+        boolean verificacion= false;
         verificacion=estudiantemd.verficarMD(this);
-        return(verificacion);
+        return verificacion;
     }
     
+    public ArrayList Facultades() throws SQLException{
+    estudianteMD estudiantemd = new estudianteMD();
+        ArrayList<String> facu= new ArrayList();
+        facu = estudiantemd.Facultades();
+        return facu;
+    }
     
+    public ArrayList Carreras(String Facultad) throws SQLException{ 
+    estudianteMD estudiantemd = new estudianteMD();
+        ArrayList<String> carreras= new ArrayList();
+        carreras = estudiantemd.Carreras(Facultad);
+        return carreras;
+    }
+    
+    public ArrayList Niveles(String Carrera) throws SQLException{ 
+    estudianteMD estudiantemd = new estudianteMD();
+        ArrayList<Integer> carreras= new ArrayList();
+        carreras = estudiantemd.Niveles(Carrera);
+        return carreras;
+    }
 }

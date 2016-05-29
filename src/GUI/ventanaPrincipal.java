@@ -9,7 +9,7 @@ import DP.estudianteDP;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,11 +26,59 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        RegistroPreg = new javax.swing.JDialog();
+        jLabel4 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         btn_ingresar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txt_cedula = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        lbl_salida = new javax.swing.JLabel();
+
+        RegistroPreg.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel4.setText("Desea registrarse?");
+
+        jButton2.setText("si");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("no");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout RegistroPregLayout = new javax.swing.GroupLayout(RegistroPreg.getContentPane());
+        RegistroPreg.getContentPane().setLayout(RegistroPregLayout);
+        RegistroPregLayout.setHorizontalGroup(
+            RegistroPregLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(RegistroPregLayout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(RegistroPregLayout.createSequentialGroup()
+                .addContainerGap(77, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(51, 51, 51)
+                .addComponent(jButton3)
+                .addGap(73, 73, 73))
+        );
+        RegistroPregLayout.setVerticalGroup(
+            RegistroPregLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(RegistroPregLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addGroup(RegistroPregLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,9 +98,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jLabel2.setText("Ingrese el número de Cédula");
         jLabel2.setName("sssss"); // NOI18N
 
-        lbl_salida.setText("jLabel3");
-        lbl_salida.setName("lbl_salida"); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -65,15 +110,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_salida)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btn_ingresar)
-                                    .addComponent(txt_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(24, Short.MAX_VALUE))))
+                            .addComponent(btn_ingresar)
+                            .addComponent(txt_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(29, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,9 +128,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addComponent(txt_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btn_ingresar)
-                .addGap(18, 18, 18)
-                .addComponent(lbl_salida)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -96,17 +136,42 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     private void btn_ingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ingresarActionPerformed
        String cedula= txt_cedula.getText();
-       String imprime = "";
+       boolean imprime = false;
        estudiantedp = new estudianteDP(cedula, 0,null);
         try {
             imprime=estudiantedp.verficarDP();
+            if(imprime){
+                VentanaModificarEstudiante nueva = new VentanaModificarEstudiante();
+                nueva.setVisible(true);
+                nueva.pack();
+                nueva.Cedula = cedula;
+            }else{
+                RegistroPreg.pack();
+                RegistroPreg.setVisible(true);
+            }
+                       
         } catch (SQLException ex) {
             Logger.getLogger(ventanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
         txt_cedula.setText("");
-        lbl_salida.setText(imprime);
-        showMessageDialog(null, "This language just gets better and better!");
+        
     }//GEN-LAST:event_btn_ingresarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+           VentanaModificarEstudiante nueva = new VentanaModificarEstudiante();
+           nueva.pack();
+           nueva.setVisible(true);
+           nueva.Cedula="";
+           RegistroPreg.dispose();
+                   
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        RegistroPreg.dispose();
+        this.dispose();
+            
+            // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      *
@@ -136,10 +201,13 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog RegistroPreg;
     private javax.swing.JButton btn_ingresar;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel lbl_salida;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField txt_cedula;
     // End of variables declaration//GEN-END:variables
 }
